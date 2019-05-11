@@ -1,7 +1,6 @@
-# packer-examples
 # Packer Examples
 
-## Sample HTTPD AMI Creation using packer
+### Sample HTTPD AMI Creation using packer
 ```bash
  # httpd.json
  # export your AWS Keys
