@@ -1,0 +1,32 @@
+{
+    "variables": {
+        "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "region":         "us-east-1"
+    },
+    "builders": [
+        {
+            "access_key": "{{user `aws_access_key`}}",
+            "ami_name": "packer-aridnik-aws-demo-{{timestamp}}",
+            "instance_type": "t2.micro",
+            "region": "us-east-1",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "source_ami": "ami-0de53d8956e8dcf80",
+            "ssh_username": "ec2-user",
+            "type": "amazon-ebs",
+            "vpc_id": "vpc-0a189933717713c1e",
+            "subnet_id":"subnet-023d3ba4bb3e56dfd"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline":[
+                "sudo yum update -y && sudo yum install httpd -y",
+                "echo Welcome to Packer! > /var/www/html/index.html",
+                "sudo systemctl enable httpd",
+                "sudo systemctl start httpd"
+            ]
+        }
+    ]
+}
